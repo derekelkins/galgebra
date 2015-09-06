@@ -259,34 +259,13 @@ class Lt(object):
         return(det_lt_I)
 
     def tr(self):  # tr(L) defined by tr(L) = grad|L(x)
-
-        connect_flg = self.Ga.connect_flg
-        self.Ga.connect_flg = False
-
-        F_x = mv.Mv(self(self.Ga.lt_x, obj=True), ga=self.Ga)
-        tr_F = (self.Ga.grad | F_x).scalar()
-        self.Ga.connect_flg = connect_flg
-        return(tr_F)
+        return(sum(rv|self(v) for rv, v in zip(self.Ga.mvr(), self.Ga.mv())).scalar())
 
     def traction(self):  # traction(L) defined by traction(L) = grad*L(x)
-
-        connect_flg = self.Ga.connect_flg
-        self.Ga.connect_flg = False
-
-        F_x = mv.Mv(self(self.Ga.lt_x, obj=True), ga=self.Ga)
-        result = self.Ga.grad * F_x
-        self.Ga.connect_flg = connect_flg
-        return(result)
+        return(sum(rv*self(v) for rv, v in zip(self.Ga.mvr(), self.Ga.mv())))
 
     def protraction(self):  # protraction(L) defined by protraction(L) = grad^L(x)
-
-        connect_flg = self.Ga.connect_flg
-        self.Ga.connect_flg = False
-
-        F_x = mv.Mv(self(self.Ga.lt_x, obj=True), ga=self.Ga)
-        result = self.Ga.grad ^ F_x
-        self.Ga.connect_flg = connect_flg
-        return(result)
+        return(sum(rv^self(v) for rv, v in zip(self.Ga.mvr(), self.Ga.mv())))
 
     def adj(self):
 
