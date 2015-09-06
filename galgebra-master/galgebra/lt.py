@@ -141,8 +141,9 @@ class Lt(object):
             if F(a + b) == F(a) + F(b):
                 self.lt_dict = {}
                 for base in self.Ga.basis:
-                    self.lt_dict[base] = (F(mv.Mv(base, ga=self.Ga))).obj
-                    if not self.lt_dict[base].is_vector():
+                    r = F(mv.Mv(base, ga=self.Ga))
+                    self.lt_dict[base] = r.obj
+                    if not r.is_vector():
                         raise ValueError(str(mat_rep) + ' is not supported for Lt definition\n')
             else:
                 raise ValueError(str(mat_rep) + ' is not supported for Lt definition\n')
