@@ -115,7 +115,7 @@ class Mv(object):
         elif op == '>':
             return A > B
         else:
-            raise ValeError('Operation ' + op + 'not allowed in Mv.Mul!')
+            raise ValueError('Operation ' + op + 'not allowed in Mv.Mul!')
         return
 
     def characterise_Mv(self):
